@@ -1,0 +1,216 @@
+.content {
+  display: flex;
+
+  flex-direction: row;
+
+  width: 100%;
+
+  align-content: center;
+
+  overflow: hidden;
+
+  height: 92vh;
+
+  margin: 0;
+
+  border-width: 0;
+}
+
+body {
+  margin: 0;
+}
+
+.button {
+  font-size: 18px;
+}
+
+.file {
+  width: 280px;
+
+  height: 280px;
+
+  flex-shrink: 0;
+
+  display: flex;
+
+  flex-direction: column;
+
+  text-align: center;
+
+  padding: 0;
+
+  border-width: 1px;
+
+  background-color: transparent;
+
+  border-color: transparent;
+
+  white-space: nowrap;
+
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.files {
+  overflow: auto;
+
+  margin-right: 1rem;
+  margin-left: 1rem;
+
+  flex-shrink: 0;
+
+  flex-wrap: wrap;
+
+  width: auto;
+
+  flex: auto;
+
+  display: flex;
+
+  flex-direction: row;
+}
+
+.file-preview {
+  height: 256px;
+
+  width: 256px;
+
+  object-fit: scale-down;
+
+  border-width: 1px;
+
+  border-color: black;
+
+  padding: 3px;
+}
+
+.tools {
+  background-color: lightblue;
+
+  padding: 1rem;
+
+  width: 17rem;
+
+  display: flex;
+
+  flex-direction: column;
+}
+
+.tooltoggle {
+  display: none;
+}
+
+.tool-form {
+  display: flex;
+
+  flex-direction: column;
+}
+
+.toolset {
+  display: flex;
+
+  flex-direction: column;
+}
+
+.togglebar {
+  background-color: lightgray;
+  width: 100%;
+  height: 8vh;
+}
+
+.previous {
+  width: auto;
+  height: 8vh;
+}
+
+@media only screen and (max-width: 600px) {
+  .files {
+    flex-direction: row;
+
+    width: 100vw;
+
+    overflow: -moz-scrollbars-none;
+
+    -ms-overflow-style: none;
+  }
+
+  .files::-webkit-scrollbar {
+    width: 0 !important;
+  }
+
+  .togglebar {
+    display: flex;
+
+    flex-direction: row;
+
+    width: 100vw;
+
+    height: 10vh;
+
+    margin: 0;
+  }
+
+  .tooltoggle {
+    background-color: white;
+
+    border-style: none;
+
+    display: block;
+
+    flex: auto;
+
+    width: auto;
+
+    height: 10vh;
+  }
+
+  .toolset {
+    display: none;
+
+    background-color: lightgray;
+
+    height: 90vh;
+
+    width: 100vw;
+
+    padding: 12px;
+  }
+
+  .file {
+    width: 90%;
+    height: unset;
+  }
+
+  .file-preview {
+    height: unset;
+    width: 100%;
+  }
+
+  .tools {
+    background-color: transparent;
+
+    position: absolute;
+
+    left: 0;
+
+    top: 10vh;
+    padding: 0;
+  }
+
+  .content {
+    height: 90vh;
+    flex-direction: row;
+  }
+  .previous {
+    height: 10vh;
+    width: 10vh;
+  }
+  * {
+    font-size: 18px;
+  }
+}

@@ -1,0 +1,103 @@
+ <!doctype html>
+ <html>
+
+ <head>
+     <link rel="stylesheet" type="text/css" href="/storageManager.css">
+     <meta name="viewport" content="width=device-width" />
+ </head>
+
+ <body>
+
+  <div class="togglebar" id="togglebar">
+         <div class="previous" onclick="window.location.href='{{previous}}'"><img class="previous" src="/images/previous.png"></div>
+         <button id="tooltoggle" class="tooltoggle">Toggle</button>
+        </div>
+     <div class="content">
+    
+         <div class="files">{{{files}}}</div>
+         <div class="tools" id="tools">
+         <div id="toolset" class="toolset">
+         <p>Upload</p>
+             <form class="tool-form" id="upload-form" enctype="multipart/form-data" method="post"
+                 action="/upload{{path}}">
+                 <input class="button" id="fileupload" name="myfile" type="file" />
+             </form>
+
+               <input class="search" id="search" type="text" placeholder="Search..">
+
+               <p>Create Folder</p>
+               <form class="tool-form" id="upload-form" enctype="multipart/form-data" method="post"
+                 action="/upload{{path}}">
+                 <input class="button" id="create-folder" name="folder" type="text" placeholder="Folder Name" />
+             </form>
+         </div>
+     </div>
+ </body>
+ <script>
+ document.getElementById("tooltoggle").onclick = function(){
+let toolset =  document.getElementById("toolset");
+if(toolset.style.display === "flex"){
+    toolset.style.display = "none";
+ 
+} else {
+    toolset.style.display = "flex";
+}
+console.log(toolset);
+}
+     document.getElementById("fileupload").onchange = function () {
+         document.getElementById("upload-form").submit();
+     };
+     document.getElementById("search").onchange = function () {
+         console.log("Searching");
+     };
+
+     
+ </script>
+ <script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@12.4.0/dist/lazyload.min.js"></script>
+ <script>
+     (function () {
+         function logElementEvent(eventName, element) {
+             console.log(
+                 Date.now(),
+                 eventName,
+                 element.getAttribute("data-src")
+             );
+         }
+
+         var callback_enter = function (element) {
+             logElementEvent("🔑 ENTERED", element);
+         };
+         var callback_exit = function (element) {
+             element.style.visibility = "none";
+             logElementEvent("🚪 EXITED", element);
+         };
+         var callback_reveal = function (element) {
+             logElementEvent("👁️ REVEALED", element);
+         };
+         var callback_loaded = function (element) {
+             logElementEvent("👍 LOADED", element);
+         };
+         var callback_error = function (element) {
+             logElementEvent("💀 ERROR", element);
+             element.src =
+                 "https://via.placeholder.com/440x560/?text=Error+Placeholder";
+         };
+         var callback_finish = function () {
+             logElementEvent("✔️ FINISHED", document.documentElement);
+         };
+
+         var ll = new LazyLoad({
+             elements_selector: ".lazy",
+             // Assign the callbacks defined above
+             callback_enter: callback_enter,
+             callback_exit: callback_exit,
+             callback_reveal: callback_reveal,
+             callback_loaded: callback_loaded,
+             callback_error: callback_error,
+             callback_finish: callback_finish
+         });
+     })();
+ </script>
+
+ </html>
+ </html>
