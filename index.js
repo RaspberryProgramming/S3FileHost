@@ -178,8 +178,7 @@ app.post("/upload*", async function(req, res, next) {
   if (path === "") {
     path = "/";
   }
-  console.log(path);
-  if (req.files !== null) {
+  if (req.files && req.files !== null) {
     if (
       ((await isIdUnique(files, {
         filename: req.files.myfile.name,
