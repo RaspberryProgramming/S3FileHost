@@ -104,7 +104,9 @@ function assemblePath(pathArray) {
   for (i in pathArray) {
     path += "/" + pathArray[i];
   }
-
+  if (path === "") {
+    path = "/";
+  }
   return path;
 }
 
@@ -317,14 +319,15 @@ app.post("/upload*", async function(req, res, next) {
 
 app.get("/download*", async function(req, res, next) {
   // download the file via aws s3 here
-  let filename = req.path
-    .split("/")
-    [req.path.split("/").length - 1].replace(/%20/g, " ");
-
+  let filename = req.path.split("/");
+  filename = filename[filename.length - 1];
   let file = await retrieve(files, {
     filename: filename
   });
-  let fullpath = req.path.split("/download")[1];
+  let fullpath = req.path.split("/");
+  fullpath.shift();
+  fullpath.shift();
+  fullpath = assemblePath(fullpath);
   console.log("Fullpath:" + fullpath);
   let folder = await retrieve(folders, {
     fullpath: fullpath
@@ -341,7 +344,7 @@ app.get("/download*", async function(req, res, next) {
     res.attachment(file.dataValues.filename);
     let fileStream = await s3.getObject(params).createReadStream();
     fileStream.pipe(res);
-  } else if (folder !== null || fullpath === "/") {
+  } else if (folder !== null || ["", "/"].includes(fullpath)) {
     let buttons = "";
     let fileData = await files
       .findAll({
@@ -365,7 +368,7 @@ app.get("/download*", async function(req, res, next) {
       });
 
     if (fullpath === "/") {
-      path = "";
+      path = "/";
     } else {
       path = fullpath;
     }
@@ -462,6 +465,7 @@ app.get("/editor*", async function(req, res) {
       filename: filename,
       location: path
     });
+
     let params = {
       Bucket: BUCKET_NAME,
       Key: file.dataValues.fileid
