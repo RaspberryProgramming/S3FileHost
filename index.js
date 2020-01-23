@@ -423,6 +423,51 @@ app.get("/images/*", (req, res) => {
   );
 });
 
+app.get("/editor*", async function(req, res) {
+  let filename = req.path.split("/")[req.path.split("/").length - 1];
+  let fullpath = req.path.split("/");
+  fullpath.shift();
+  fullpath.shift();
+  fullpath = assemblePath(fullpath);
+  let path = previous(fullpath);
+
+  let extension = filename.split(".")[filename.split(".").length - 1];
+
+  let template = await fs.readFileSync(
+    __dirname + "/public/mustache/editor.mustache",
+    {
+      encoding: "utf-8"
+    }
+  );
+
+  let filetypes = {
+    images: ["jpg", "jpeg", "png", "gif"],
+    text: ["txt", "text"]
+  };
+  let editorData = "";
+
+  if (filetypes.images.includes(extension)) {
+    editorData = `<img src='${"/download" + filename}' href='${"/download" +
+      filename}''>`;
+  } else if (filetypes.text.includes(extension)) {
+    let file = await retrieve(files, { filename: filename, location: path });
+    let params = {
+      Bucket: BUCKET_NAME,
+      Key: file.dataValues.fileid
+    };
+
+    let fileData = await s3.getObject(params).promise();
+    editorData = `<textarea class="textbox" id="textbox">${fileData.Body.toString()}</textarea><button class="submit" id="submit" onclick="savetxt();">Save</button>`;
+
+    console.log(editorData);
+  } else {
+    editorData = "Not Yet Supported";
+  }
+
+  let data = await mustache.render(template, { editor: editorData });
+  res.send(data);
+});
+
 app.get("/preview*", async (req, res) => {
   /**
    * When a css file is requested, /public/css is searched
