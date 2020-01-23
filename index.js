@@ -373,11 +373,13 @@ app.get("/download*", async function(req, res, next) {
       let src = previewFilter(
         "/preview" + path + "/" + fileData[i].dataValues.filename
       );
+      let fullfile = path + "/" + fileData[i].dataValues.filename;
+      let filename = fileData[i].dataValues.filename;
 
-      buttons += `<button class="file" onclick="window.location.href='${src}';">
-    <img class="file-preview lazy" data-src='${src}'>
-        ${fileData[i].dataValues.filename}
-    </button>`;
+      buttons += `<button class="file" id="${filename}" onclick="select('${filename}', '${fullfile}');">
+      <img class="file-preview lazy" data-src='${src}'>
+          ${filename}
+      </button>`;
     }
     let template = await fs.readFileSync(
       __dirname + "/public/mustache/storagemanager.mustache",
