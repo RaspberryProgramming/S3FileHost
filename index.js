@@ -106,8 +106,8 @@ function assemblePath(pathArray) {
 }
 
 function previous(path) {
-        console.log(path);
         path = path.split("/");
+        path.shift();
         path.pop();
         return assemblePath(path);
 }
@@ -505,6 +505,7 @@ app.get("/preview*", async (req, res) => {
                         filename: filename,
                         location: path
                 });
+                console.log(path);
                 if (file && file.preview === true) {
                         let params = {
                                 Bucket: BUCKET_NAME,
@@ -515,7 +516,6 @@ app.get("/preview*", async (req, res) => {
                         fileStream.pipe(res);
                 } else {
                         if (["jpg", "jpeg", "png"].includes(extension)) {
-                                console.log("image");
                                 res.sendFile(__dirname + `/public/images/picture.svg`);
                         } else {
                                 res.sendFile(__dirname + `/public/images/document.png`);
