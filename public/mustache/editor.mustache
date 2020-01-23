@@ -1,0 +1,50 @@
+ <!doctype html>
+ <html>
+
+ <head>
+     <link rel="stylesheet" type="text/css" href="/editor.css">
+     <meta name="viewport" content="width=device-width" />
+ </head>
+
+ <body>
+ <div class="content" id="content">{{{editor}}}</div>
+ </body>
+
+ </html>
+ <script>
+
+ function assemblePath(pathArray){
+         let path = "/";
+         for (i in pathArray){
+                 if (i === pathArray.length-1){
+                         path += pathArray[i];
+                 } else {
+                 path += pathArray[i] + "/";
+                 }
+         }
+         return path;
+ }
+
+function savetxt(){
+
+ let textbox = document.getElementById("textbox");
+ let data = textbox.value;
+  console.log( 'Sending data' );
+  let uploadpath = '{{{file}}}'.split("/");
+  
+  let filename = uploadpath[uploadpath.length-1];
+  uploadpath.shift();
+  uploadpath.shift();
+  uploadpath.pop();
+    uploadpath = "/upload" + assemblePath(uploadpath);
+  var xhr = new XMLHttpRequest();
+xhr.open("POST", uploadpath, true);
+xhr.setRequestHeader('Content-Type', 'application/json');
+xhr.send(JSON.stringify({
+    filedata: data,
+    filename: filename
+}));
+console.log(uploadpath);
+}
+
+ </script>
