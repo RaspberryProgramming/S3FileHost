@@ -240,7 +240,11 @@ app.post("/upload*", async function(req, res, next) {
                   throw err;
                 }
                 console.log("Preview Uploaded");
-                let file = await files.findOne({ where: { fileid: key } });
+                let file = await files.findOne({
+                  where: {
+                    fileid: key
+                  }
+                });
                 if (file !== null) {
                   console.log(file);
                   file.update({
@@ -454,7 +458,10 @@ app.get("/editor*", async function(req, res) {
       filename}''>`;
   } else if (filetypes.text.includes(extension)) {
     console.log(path);
-    let file = await retrieve(files, { filename: filename, location: path });
+    let file = await retrieve(files, {
+      filename: filename,
+      location: path
+    });
     let params = {
       Bucket: BUCKET_NAME,
       Key: file.dataValues.fileid
@@ -492,7 +499,9 @@ app.get("/preview*", async (req, res) => {
       }
     );
 
-    let data = mustache.render(template, { filepath: `/download${filename}` });
+    let data = mustache.render(template, {
+      filepath: `/download${filename}`
+    });
     res.send(data);
   } else {
     let filename = req.path
@@ -536,6 +545,15 @@ app.get("/preview*", async (req, res) => {
       }
     }
   }
+});
+
+app.get("/pull", async (req, res) => {
+  const execSync = require("child_process").execSync;
+  // import { execSync } from 'child_process';  // replace ^ if using ES modules
+  const output = execSync("git pull", {
+    encoding: "utf-8"
+  }); // the default is 'buffer'
+  console.log("Output was:\n", output);
 });
 
 app.use((req, res) => {
