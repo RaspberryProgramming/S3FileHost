@@ -111,7 +111,8 @@ function assemblePath(pathArray) {
 }
 
 function previous(path) {
-  if (path === "/") {
+  console.log(path);
+  if (path === "") {
     return "/";
   } else {
     path = path.split("/");
@@ -374,7 +375,7 @@ app.get("/download*", async function(req, res, next) {
     }
 
     for (i in folderData) {
-      buttons += `<button class="file" onclick="window.location.href='/download${path}/${folderData[i].dataValues.foldername}';">
+      buttons += `<button class="file" onclick="window.location.href='/download${path}${folderData[i].dataValues.foldername}';">
     <img class="file-preview lazy" data-src='/images/folder.png'>
         ${folderData[i].dataValues.foldername}
     </button>`;
@@ -517,18 +518,15 @@ app.get("/preview*", async (req, res) => {
     let fullpath = req.path.split("/")[1];
     fullpath.shift();
     fullpath.shift();
-
+    fullpath = assemblePath(fullpath);
     let path = previous(fullpath);
-
-    if (path !== "/") {
-      path = path.substring(0, path.length - 1);
-    }
     console.log(filename);
     console.log(path);
     let file = await retrieve(files, {
       filename: filename,
       location: path
     });
+    console.log(file);
     if (file && file.preview === true) {
       console.log(file.fileid + "-preview");
       console.log(file.filename);
