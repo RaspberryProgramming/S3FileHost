@@ -12,6 +12,17 @@
 
  </html>
  <script>
+ document.addEventListener("keydown", function(e) {
+  if ((window.navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey)  && e.keyCode == 83) {
+    e.preventDefault();
+
+    let file = '{{{file}}}'.split(".");
+    extension = file[file.length-1];
+    if (extension === "txt" || extension === "text"){
+        savetxt();
+    }
+  }
+}, false);
 
  function assemblePath(pathArray){
          let path = "";
