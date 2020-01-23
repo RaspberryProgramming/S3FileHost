@@ -472,34 +472,62 @@ app.get("/preview*", async (req, res) => {
   /**
    * When a css file is requested, /public/css is searched
    */
-  let filename = req.path
-    .split("/")
-    [req.path.split("/").length - 1].replace(/%20/g, " ");
+  if (req.path.split("/")[1] === "preview-page") {
+    let filename = req.path.split("/preview-page")[
+      req.path.split("/preview-page").length - 1
+    ];
+    let extension = filename.split(".")[filename.split(".").length - 1];
 
-  let fullpath = req.path.split("/preview")[1];
-  let path = previous(fullpath);
-  if (path !== "/") {
-    path = path.substring(0, path.length - 1);
-  }
-  console.log(filename);
-  console.log(path);
-  let file = await retrieve(files, {
-    filename: filename,
-    location: path
-  });
-  if (file && file.preview === true) {
-    console.log(file.fileid + "-preview");
-    console.log(file.filename);
-    let params = {
-      Bucket: BUCKET_NAME,
-      Key: file.fileid + "-preview"
-    };
-    console.log(file.fileid + "-preview");
-    res.attachment(file.dataValues.filename);
-    let fileStream = await s3.getObject(params).createReadStream();
-    fileStream.pipe(res);
+    let template = await fs.readFileSync(
+      __dirname + "/public/mustache/preview.mustache",
+      {
+        encoding: "utf-8"
+      }
+    );
+
+    let data = mustache.render(template, { filepath: `/download${filename}` });
+    res.send(data);
   } else {
-    res.sendFile(__dirname + `/public/images/document.png`);
+    let filename = req.path
+      .split("/")
+      [req.path.split("/").length - 1].replace(/%20/g, " ");
+
+    let extension = filename.split(".")[filename.split(".").length - 1];
+
+    let fullpath = req.path.split("/")[1];
+    fullpath.shift();
+    fullpath.shift();
+
+    let path = previous(fullpath);
+
+    if (path !== "/") {
+      path = path.substring(0, path.length - 1);
+    }
+    console.log(filename);
+    console.log(path);
+    let file = await retrieve(files, {
+      filename: filename,
+      location: path
+    });
+    if (file && file.preview === true) {
+      console.log(file.fileid + "-preview");
+      console.log(file.filename);
+      let params = {
+        Bucket: BUCKET_NAME,
+        Key: file.fileid + "-preview"
+      };
+      console.log(file.fileid + "-preview");
+      res.attachment(file.dataValues.filename);
+      let fileStream = await s3.getObject(params).createReadStream();
+      fileStream.pipe(res);
+    } else {
+      if (["jpg", "jpeg", "png"].includes(extension)) {
+        console.log("image");
+        res.sendFile(__dirname + `/public/images/picture.svg`);
+      } else {
+        res.sendFile(__dirname + `/public/images/document.png`);
+      }
+    }
   }
 });
 
@@ -512,4 +540,3 @@ var server = app.listen(3000, function() {
   var port = server.address().port;
   console.log("S3 Proxy app listening at http://%s:%s", host, port);
 });
-
