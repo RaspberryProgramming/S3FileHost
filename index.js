@@ -99,6 +99,18 @@ function generateID() {
   return crypto.randomBytes(32).toString("hex");
 }
 
+function assemblePath(pathArray) {
+  let path = "/";
+  for (i in pathArray) {
+    if (i === pathArray.length - 1) {
+      path += pathArray[i];
+    } else {
+      path += pathArray[i] + "/";
+    }
+  }
+  return path;
+}
+
 function previous(path) {
   if (path === "/") {
     return "/";
