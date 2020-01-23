@@ -266,6 +266,28 @@ app.post("/upload*", async function(req, res, next) {
       console.log("Error Uploading file");
       res.send(`Error uploading file`);
     }
+  } else if (req.body.filedata !== null) {
+    if (
+      !(await isIdUnique(files, {
+        filename: req.body.filename
+      }))
+    ) {
+      let file = await retrieve(files, {
+        filename: req.body.filename
+      });
+      console.log(req.body.filename);
+      let params = {
+        Bucket: BUCKET_NAME,
+        Key: file.dataValues.fileid, // File name you want to save as in S3
+        Body: req.body.filedata
+      };
+      // Uploading files to the bucket
+      s3.upload(params, function(err, data) {
+        if (err) {
+          throw err;
+        }
+      });
+    }
   } else {
     let folder = req.body.folder;
     folders.create({
