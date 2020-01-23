@@ -266,7 +266,7 @@ app.post("/upload*", async function(req, res, next) {
       console.log("Error Uploading file");
       res.send(`Error uploading file`);
     }
-  } else if (req.body.filedata !== null) {
+  } else if (req.body.filedata && req.body.filedata !== null) {
     if (
       !(await isIdUnique(files, {
         filename: req.body.filename
