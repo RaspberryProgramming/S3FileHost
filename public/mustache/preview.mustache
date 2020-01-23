@@ -7,7 +7,32 @@
  </head>
 
  <body>
-     <img src={{imgpath}} href={{imgpath}}>
+ <div id="content"></div>
  </body>
 
  </html>
+ <script>
+let file = '{{{filepath}}}';
+ let extension = file.split(".")[file.split(".").length-1];
+ let content = document.getElementById("content");
+let filetypes = {
+        images: ["jpg", "jpeg", "png", "gif"],
+        text: ["txt", "text"],
+};
+
+ if (filetypes.images.includes(extension)){
+         content.innerHTML += `<img src=${file} href=${file}>`;
+ } else if (filetypes.text.includes(extension)){
+         fetch(file)
+        .then(response => response.text())
+        .then((data) => {
+                data = data.split("\n");
+                for (i in data){
+        content.innerHTML += `<p>${data[i]}</p>`;
+                }
+          })
+         
+ } else {
+        content.innerHTML += "Not Yet Supported";
+ }
+ </script>
