@@ -14,14 +14,11 @@
  <script>
 
  function assemblePath(pathArray){
-         let path = "/";
+         let path = "";
          for (i in pathArray){
-                 if (i === pathArray.length-1){
-                         path += pathArray[i];
-                 } else {
-                 path += pathArray[i] + "/";
+                 path += "/" + pathArray[i];
                  }
-         }
+         
          return path;
  }
 
@@ -30,12 +27,12 @@ function savetxt(){
  let textbox = document.getElementById("textbox");
  let data = textbox.value;
   console.log( 'Sending data' );
-  let uploadpath = '{{{file}}}'.split("/");
-  
-  let filename = uploadpath[uploadpath.length-1];
+  let filename = '{{{file}}}';
+  let uploadpath = window.location.pathname.split("/");
   uploadpath.shift();
   uploadpath.shift();
   uploadpath.pop();
+  console.log(uploadpath);
     uploadpath = "/upload" + assemblePath(uploadpath);
   var xhr = new XMLHttpRequest();
 xhr.open("POST", uploadpath, true);

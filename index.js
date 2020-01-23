@@ -100,14 +100,11 @@ function generateID() {
 }
 
 function assemblePath(pathArray) {
-  let path = "/";
+  let path = "";
   for (i in pathArray) {
-    if (i === pathArray.length - 1) {
-      path += pathArray[i];
-    } else {
-      path += pathArray[i] + "/";
-    }
+    path += "/" + pathArray[i];
   }
+
   return path;
 }
 
@@ -116,16 +113,17 @@ function previous(path) {
     return "/";
   } else {
     path = path.split("/");
+    path.shift();
     if (path[path.length - 1] === "") {
       let tmp = "";
       for (let i = 0; i < path.length - 2; i++) {
-        tmp += path[i] + "/";
+        tmp += "/" + path[i];
       }
       return tmp;
     } else {
       let tmp = "";
       for (let i = 0; i < path.length - 1; i++) {
-        tmp += path[i] + "/";
+        tmp += "/" + path[i];
       }
       return tmp;
     }
@@ -173,8 +171,10 @@ app.get("/", async function(req, res, next) {
 });
 
 app.post("/upload*", async function(req, res, next) {
-  let path = await req.path.split("/upload");
-  path = path[path.length - 1];
+  let path = await req.path.split("/");
+  path.shift();
+  path.shift();
+  path = assemblePath(path);
   if (path === "") {
     path = "/";
   }
@@ -267,15 +267,19 @@ app.post("/upload*", async function(req, res, next) {
       res.send(`Error uploading file`);
     }
   } else if (req.body.filedata && req.body.filedata !== null) {
+    console.log(req.body.filename);
+    console.log(path);
     if (
       !(await isIdUnique(files, {
-        filename: req.body.filename
+        filename: req.body.filename,
+        location: path
       }))
     ) {
       let file = await retrieve(files, {
-        filename: req.body.filename
+        filename: req.body.filename,
+        location: path
       });
-      console.log(req.body.filename);
+      console.log(file.location);
       let params = {
         Bucket: BUCKET_NAME,
         Key: file.dataValues.fileid, // File name you want to save as in S3
@@ -432,7 +436,6 @@ app.get("/editor*", async function(req, res) {
   let path = previous(fullpath);
 
   let extension = filename.split(".")[filename.split(".").length - 1];
-
   let template = await fs.readFileSync(
     __dirname + "/public/mustache/editor.mustache",
     {
@@ -450,6 +453,7 @@ app.get("/editor*", async function(req, res) {
     editorData = `<img src='${"/download" + filename}' href='${"/download" +
       filename}''>`;
   } else if (filetypes.text.includes(extension)) {
+    console.log(path);
     let file = await retrieve(files, { filename: filename, location: path });
     let params = {
       Bucket: BUCKET_NAME,
@@ -464,7 +468,10 @@ app.get("/editor*", async function(req, res) {
     editorData = "Not Yet Supported";
   }
 
-  let data = await mustache.render(template, { editor: editorData });
+  let data = await mustache.render(template, {
+    editor: editorData,
+    file: filename
+  });
   res.send(data);
 });
 
