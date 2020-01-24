@@ -41,6 +41,7 @@
                          </div>
                  </div>
  </body>
+ </html>
  <script>
          function preview() {
                  let selected = document.getElementsByClassName("selected");
@@ -124,13 +125,14 @@
                          logElementEvent("🔑 ENTERED", element);
                  };
                  var callback_exit = function (element) {
-                         element.style.visibility = "none";
+                         element.style.visibility = "hidden";
                          logElementEvent("🚪 EXITED", element);
                  };
                  var callback_reveal = function (element) {
                          logElementEvent("👁️ REVEALED", element);
                  };
                  var callback_loaded = function (element) {
+
                          logElementEvent("👍 LOADED", element);
                  };
                  var callback_error = function (element) {
@@ -139,6 +141,8 @@
                                  "https://via.placeholder.com/440x560/?text=Error+Placeholder";
                  };
                  var callback_finish = function () {
+                        element.style.visibility = "none";
+
                          logElementEvent("✔️ FINISHED", document.documentElement);
                  };
 
@@ -154,7 +158,3 @@
                  });
          })();
  </script>
-
- </html>
-
- </html>
