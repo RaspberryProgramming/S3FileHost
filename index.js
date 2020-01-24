@@ -206,7 +206,7 @@ app.post("/upload*", async function (req, res, next) {
                                         console.log("key:" + key);
 
                                         Jimp.read(req.files.myfile.data).then(image => {
-                                                image.scaleToFit(512, 512).getBuffer(Jimp.MIME_JPEG, (err, res) => {
+                                                image.scaleToFit(512, 512).quality(50).getBuffer(Jimp.MIME_JPEG, (err, res) => {
                                                         console.log(res);
                                                         let params = {
                                                                 Bucket: BUCKET_NAME,
