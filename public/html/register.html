@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+        <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet" />
+        <link rel="StyleSheet" href="main.css" type="text/css" />
+        <link rel="StyleSheet" href="login-page.css" type="text/css" />
+        <link rel="StyleSheet" href="navbar.css" type="text/css" />
+        <meta name="viewport" content="width=device-width" />
+</head>
+
+<body>
+        <button onclick="window.location.href='/Login'">Login</button>
+
+        <form class="tool-form" id="login-form" enctype="multipart/form-data" method="post" action="/register">
+                <input name="user" type="text" placeholder="Username" />
+                <input id="password" name="password" type="password" placeholder="Password" />
+                <input id="passwordverify" name="passwordverify" type="password" placeholder="Password" />
+
+        </form>
+</body>
+
+</html>
+
+<script>
+        document.getElementById("passwordverify").onkeydown = (e) => {
+                if (e.keyCode === 13) {
+                        let password = document.getElementById("password");
+                        let passwordverify = document.getElementById("passwordverify");
+                        if (password.value === passwordverify.value) {
+                                document.getElementById("login-form").submit();
+                        } else {
+                                password.value = "";
+                                passwordverify.value = "";
+                        }
+                }
+        }
+</script>
