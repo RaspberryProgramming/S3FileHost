@@ -6,11 +6,8 @@ const express = require("express");
 const fileUpload = require("express-fileupload");
 const crypto = require("crypto");
 const mustache = require("mustache");
-const {
-        Sequelize,
-        Model,
-        DataTypes
-} = require("sequelize");
+var cookieParser = require("cookie-parser");
+const { Sequelize, Model, DataTypes } = require("sequelize");
 const app = express();
 
 app.use(fileUpload());
@@ -136,11 +133,31 @@ function previewFilter(filename) {
         }
 }
 
+app.use(cookieParser());
+
 app.use(compression());
 
-app.get("/", async function (req, res, next) {
+app.use(async function(req, res, next) {
+  let cookie = req.cookies.browserid;
+
+  if (cookie === undefined) {
+    let id = crypto.randomBytes(64).toString("hex");
+    console.log(id);
+    res.cookie("browserid", id, {
+      maxAge: 2592000,
+      httpOnly: true
+    });
+
+    console.log("cookie created successfully");
+  }
+
+  next(); // <-- important!
+});
+
+app.get("/", async function(req, res, next) {
         let template = await fs.readFileSync(
-                __dirname + "/public/mustache/index.mustache", {
+    __dirname + "/public/mustache/index.mustache",
+    {
                         encoding: "utf-8"
                 }
         );
