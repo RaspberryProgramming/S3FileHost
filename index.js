@@ -18,6 +18,11 @@ app.use(fileUpload())
 
 app.use(express.json())
 
+app.use((req, res, next) => {
+        console.log(req.ip)
+        next()
+})
+
 const sequelize = new Sequelize({
         dialect: 'sqlite',
         storage: 'database.sqlite',
@@ -544,19 +549,32 @@ app.get('/preview*', async (req, res) => {
          */
 
         if (req.path.split('/')[1] === 'preview-page') {
-                let filename = req.path.split('/preview-page')[
-                        req.path.split('/preview-page').length - 1
-                ]
+                let filename = req.path.split('/')[req.path.split('/').length - 1]
                 let extension = filename.split('.')[filename.split('.').length - 1]
+                let fullpath = req.path.split('/')
+                fullpath.shift()
+                fullpath.shift()
+                fullpath = assemblePath(fullpath)
 
                 let template = await fs.readFileSync(
                         __dirname + '/public/mustache/preview.mustache', {
                                 encoding: 'utf-8'
                         }
                 )
+                let output
+                if (['jpg', 'jpeg', 'png'].includes(extension)) {
+                        output = `<img href="/download${filename}" src="/download${filename}">`
+                } else if (['mp4'].includes(extension)) {
+                        output = ` <video width="320" height="240" controls>
+            <source src="/download${fullpath}" type="video/${extension}">
+          Your browser does not support the video tag.
+          </video> `
+                } else {
+                        output = 'Not yet supported'
+                }
 
                 let data = mustache.render(template, {
-                        filepath: `/download${filename}`
+                        preview: output
                 })
                 res.send(data)
         } else {
@@ -661,17 +679,20 @@ app.get('/pull*', async (req, res) => {
 })
 
 app.get('/logout', async (req, res) => {
-
-        if (!await isIdUnique(users, {
+        if (
+                !(await isIdUnique(users, {
                         cookie: req.cookies.browserid
-                })) {
-                update(users, {
-                        cookie: req.cookies.browserid
-                }, {
-                        cookie: null
-                })
+                }))
+        ) {
+                update(
+                        users, {
+                                cookie: req.cookies.browserid
+                        }, {
+                                cookie: null
+                        }
+                )
         }
-        res.redirect("/login");
+        res.redirect('/login')
 })
 
 app.use((req, res) => {
