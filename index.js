@@ -432,9 +432,9 @@ app.get('/download*', async function (req, res, next) {
 
                         for (i in fileData) {
                                 let src = previewFilter(
-                                        '/preview' + path + '/' + fileData[i].dataValues.filename
+                                        '/preview' + path + fileData[i].dataValues.filename
                                 )
-                                let fullfile = path + '/' + fileData[i].dataValues.filename
+                                let fullfile = path + fileData[i].dataValues.filename
                                 let filename = fileData[i].dataValues.filename
 
                                 buttons += `<button class="file" id="${filename}" onclick="select('${filename}', '${fullfile}');">
@@ -554,6 +554,7 @@ app.get('/preview*', async (req, res) => {
                 let fullpath = req.path.split('/')
                 fullpath.shift()
                 fullpath.shift()
+                console.log(fullpath);
                 fullpath = assemblePath(fullpath)
 
                 let template = await fs.readFileSync(
@@ -563,12 +564,11 @@ app.get('/preview*', async (req, res) => {
                 )
                 let output
                 if (['jpg', 'jpeg', 'png'].includes(extension)) {
-                        output = `<img href="/download${filename}" src="/download${filename}">`
-                } else if (['mp4'].includes(extension)) {
-                        output = ` <video width="320" height="240" controls>
-            <source src="/download${fullpath}" type="video/${extension}">
-          Your browser does not support the video tag.
-          </video> `
+                        output = `<img href="/download${fullpath}" src="/download${fullpath}">`
+                } else if (['m4v', 'mp4', 'webm'].includes(extension)) {
+
+                        output = `<video width="320" height="240" controls><source src="/download${fullpath}" type="video/${extension}" /> Your browser does not support the video tag.
+                        </video>`
                 } else {
                         output = 'Not yet supported'
                 }
