@@ -1,0 +1,27 @@
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+.form {
+    display: flex;
+    margin-top: auto;
+    margin-bottom: auto;
+    flex-direction: column;
+}
+
+.form * {
+    width: 25%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1rem;
+}
+
+.navbar {
+    display: flex;
+    flex-direction: row;
+}
+
+.accounts {
+    margin-left: auto;
+}
