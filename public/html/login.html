@@ -8,11 +8,21 @@
 </head>
 
 <body>
-        <button onclick="window.location.href='/register'">Register</button>
-        <form class="tool-form" id="login-form" enctype="multipart/form-data" method="post" action="/login">
+        <div class="navbar">
+                <button onclick="window.location.href='/'">Home</button>
+                <div class="accounts">
+                        <button onclick="window.location.href='/register'">Register</button>
+                        <button onclick="window.location.href='#'">Login</button>
+                </div>
+        </div>
+        <form class="form" id="login-form" enctype="multipart/form-data" method="post" action="/login">
                 <input name="user" type="text" placeholder="Username" />
                 <input id="password" name="pass" type="password" placeholder="Password" />
+                <input id="login" type="submit" value="Login">
         </form>
+        
+
+        
 </body>
 
 </html>
