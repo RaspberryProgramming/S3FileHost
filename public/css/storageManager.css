@@ -1,224 +1,231 @@
 .content {
-        display: flex;
+    display: flex;
 
-        flex-direction: row;
+    flex-direction: row;
 
-        width: 100%;
+    width: 100%;
 
-        align-content: center;
+    align-content: center;
 
-        overflow: hidden;
+    overflow: hidden;
 
-        height: 92vh;
+    height: 92vh;
 
-        margin: 0;
+    margin: 0;
 
-        border-width: 0;
+    border-width: 0;
 }
 
 body {
-        margin: 0;
+    margin: 0;
 }
 
 .button {
-        font-size: 18px;
+    font-size: 18px;
 }
 
 .file {
-        width: 280px;
+    width: 280px;
 
-        height: 280px;
+    height: 280px;
 
-        flex-shrink: 0;
+    flex-shrink: 0;
 
-        display: flex;
+    display: flex;
 
-        flex-direction: column;
+    flex-direction: column;
 
-        text-align: center;
+    text-align: center;
 
-        padding: 0;
+    padding: 0;
 
-        border-width: 1px;
+    border-width: 1px;
 
-        background-color: transparent;
+    background-color: transparent;
 
-        border-color: transparent;
+    border-color: transparent;
 
-        white-space: nowrap;
+    white-space: nowrap;
 
-        overflow: hidden;
+    overflow: hidden;
 
-        text-overflow: ellipsis;
+    text-overflow: ellipsis;
 }
 
 .selected {
-        border-style: solid !important;
-        border-color: lightblue !important;
-        border-width: 4px;
+    border-style: solid !important;
+    border-color: lightblue !important;
+    border-width: 4px;
 }
 
 * {
-        box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 .files {
-        overflow: auto;
+    overflow: auto;
 
-        margin-right: 1rem;
-        margin-left: 1rem;
+    margin-right: 1rem;
+    margin-left: 1rem;
 
-        flex-shrink: 0;
+    flex-shrink: 0;
 
-        flex-wrap: wrap;
+    flex-wrap: wrap;
 
-        width: auto;
+    width: auto;
 
-        flex: auto;
+    flex: auto;
 
-        display: flex;
+    display: flex;
 
-        flex-direction: row;
+    flex-direction: row;
 }
 
 .file-preview {
-        height: 256px;
+    height: 256px;
 
-        width: 256px;
+    width: 256px;
 
-        object-fit: scale-down;
+    object-fit: scale-down;
 
-        border-width: 1px;
+    border-width: 1px;
 
-        border-color: black;
+    border-color: black;
 
-        padding: 3px;
+    padding: 3px;
+
+    visibility: hidden;
+
 }
 
 .tools {
-        background-color: lightblue;
+    background-color: lightblue;
 
-        padding: 1rem;
+    padding: 1rem;
 
-        width: 17rem;
+    width: 17rem;
 
-        display: flex;
+    display: flex;
 
-        flex-direction: column;
+    flex-direction: column;
 }
 
 .tooltoggle {
-        display: none;
+    display: none;
 }
 
 .tool-form {
-        display: flex;
+    display: flex;
 
-        flex-direction: column;
+    flex-direction: column;
 }
 
 .toolset {
-        display: flex;
+    display: flex;
 
-        flex-direction: column;
+    flex-direction: column;
 }
 
 .togglebar {
-        background-color: lightgray;
-        width: 100%;
-        height: 8vh;
+    background-color: lightgray;
+    width: 100%;
+    height: 8vh;
 }
 
 .previous {
-        width: auto;
-        height: 8vh;
+    width: auto;
+    height: 8vh;
 }
 
 @media only screen and (max-width: 600px) {
-        .files {
-                flex-direction: row;
+    .files {
+        flex-direction: row;
 
-                width: 100vw;
+        width: 100vw;
+        height: 88vh;
 
-                overflow: -moz-scrollbars-none;
+        overflow: -moz-scrollbars-none;
 
-                -ms-overflow-style: none;
-        }
+        -ms-overflow-style: none;
 
-        .files::-webkit-scrollbar {
-                width: 0 !important;
-        }
+        border-style:solid;
+        border-radius: 10px;
+    }
 
-        .togglebar {
-                display: flex;
+    .files::-webkit-scrollbar {
+        width: 0 !important;
+    }
 
-                flex-direction: row;
+    .togglebar {
+        display: flex;
 
-                width: 100vw;
+        flex-direction: row;
 
-                height: 10vh;
+        width: 100vw;
 
-                margin: 0;
-        }
+        height: 10vh;
 
-        .tooltoggle {
-                background-color: white;
+        margin: 0;
+    }
 
-                border-style: none;
+    .tooltoggle {
+        background-color: white;
 
-                display: block;
+        border-style: solid;
 
-                flex: auto;
+        display: block;
 
-                width: auto;
+        flex: auto;
 
-                height: 10vh;
-        }
+        width: auto;
 
-        .toolset {
-                display: none;
+        height: 10vh;
+    }
 
-                background-color: lightgray;
+    .toolset {
+        display: none;
 
-                height: 90vh;
+        background-color: lightgray;
 
-                width: 100vw;
+        height: 90vh;
 
-                padding: 12px;
-        }
+        width: 100vw;
 
-        .file {
-                width: 100%;
-                height: unset;
-        }
+        padding: 12px;
+    }
 
-        .file-preview {
-                height: unset;
-                width: 100%;
-        }
+    .file {
+        width: 100%;
+        height: unset;
+    }
 
-        .tools {
-                background-color: transparent;
+    .file-preview {
+        height: unset;
+        width: 100%;
+    }
 
-                position: absolute;
+    .tools {
+        background-color: transparent;
 
-                left: 0;
+        position: absolute;
 
-                top: 10vh;
-                padding: 0;
-        }
+        left: 0;
 
-        .content {
-                height: 90vh;
-                flex-direction: row;
-        }
+        top: 10vh;
+        padding: 0;
+    }
 
-        .previous {
-                height: 10vh;
-                width: 10vh;
-        }
+    .content {
+        height: 90vh;
+        flex-direction: row;
+    }
 
-        * {
-                font-size: 18px;
-        }
+    .previous {
+        height: 10vh;
+        width: 10vh;
+    }
+
+    * {
+        font-size: 18px;
+    }
 }
