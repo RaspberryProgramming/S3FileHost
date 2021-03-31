@@ -396,7 +396,8 @@ app.get('/download*', async function (req, res, next) {
                 cookie: req.cookies.browserid
         })
         if (user !== null) {
-                let filename = req.path.split('/')
+                let filename = req.path
+                filename = filename.split("%20").join(" ").split('/')
                 filename = filename[filename.length - 1]
                 let file = await retrieve(files, {
                         filename: filename
