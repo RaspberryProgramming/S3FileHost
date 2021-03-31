@@ -495,12 +495,16 @@ app.get('/download*', async function (req, res, next) {
         }
 })
 
-app.get('*.css', (req, res) => {
+app.get('/css/*.css', (req, res) => {
         /**
          * When a css file is requested, /public/css is searched
          */
-        res.sendFile(__dirname + `/public/css/${req.path.split('/')[1]}`)
+        res.sendFile(__dirname + `/public/css/${req.path.split('/')[2]}`)
         console.log(
+                `${req.connection.remoteAddress}:/public/css/${req.path.split('/')[2]}`
+        )
+})
+
 app.get('/js/*.js', (req, res) => {
         /**
          * When a css file is requested, /public/css is searched
