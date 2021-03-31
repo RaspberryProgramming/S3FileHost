@@ -501,7 +501,13 @@ app.get('*.css', (req, res) => {
          */
         res.sendFile(__dirname + `/public/css/${req.path.split('/')[1]}`)
         console.log(
-                `${req.connection.remoteAddress}:/public/css/${req.path.split('/')[1]}`
+app.get('/js/*.js', (req, res) => {
+        /**
+         * When a css file is requested, /public/css is searched
+         */
+        res.sendFile(__dirname + `/public/js/${req.path.split('/')[2]}`)
+        console.log(
+                `${req.connection.remoteAddress}:/public/js/${req.path.split('/')[2]}`
         )
 })
 
