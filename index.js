@@ -562,7 +562,7 @@ app.get('/editor*', async function (req, res) {
         ) {
                 let data = 'Error: File Not Found'
         } else if (filetypes.images.includes(extension)) {
-                editorData = `<img src='${'/download' + filename}' href='${'/download' +
+                editorData = `<img src='${'/download/' + filename}' href='${'/download/' +
       filename}''>`
         } else if (filetypes.text.includes(extension)) {
                 console.log(path)
