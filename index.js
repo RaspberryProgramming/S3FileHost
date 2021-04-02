@@ -463,7 +463,7 @@ app.get('/download*', async function (req, res, next) {
                         }
 
                         for (i in folderData) {
-                                buttons += `<button class="file" onclick="window.location.href='/download${path}${folderData[i].dataValues.foldername}';">
+                                buttons += `<button id="${folderData[i].dataValues.foldername}" class="folder" onclick="window.location.href='/download${path}${folderData[i].dataValues.foldername}';">
     <img class="file-preview lazy" data-src='/images/folder.png'>
         ${folderData[i].dataValues.foldername}
     </button>`

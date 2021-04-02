@@ -24,7 +24,7 @@ body {
     font-size: 18px;
 }
 
-.file {
+.file, .folder {
     width: 280px;
 
     height: 280px;
