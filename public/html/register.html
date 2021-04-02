@@ -9,18 +9,21 @@
 
 <body>
         <div class="navbar">
+                <div class="logo"><img src="/images/logo.webp"></div>
                 <button onclick="window.location.href='/'">Home</button>
                 <div class="accounts">
                         <button onclick="window.location.href='#'">Register</button>
                         <button onclick="window.location.href='/login'">Login</button>
                 </div>
         </div>
-
+        <div class="logo" id="logo">
+                <img src="/images/logo.webp">
+        </div>
         <form class="form" id="register-form" enctype="multipart/form-data" method="post" action="/register">
                 <input name="user" type="text" placeholder="Username" />
                 <input id="password" name="password" type="password" placeholder="Password" />
                 <input id="passwordverify" name="passwordverify" type="password" placeholder="Verify Password" />
-                <input id="register" type="submit" value="Register">
+                <input class="btn" id="register" type="submit" value="Register">
         </form>
 </body>
 

@@ -9,16 +9,20 @@
 
 <body>
         <div class="navbar">
+                <div class="logo"><img src="/images/logo.webp"></div>
                 <button onclick="window.location.href='/'">Home</button>
                 <div class="accounts">
                         <button onclick="window.location.href='/register'">Register</button>
                         <button onclick="window.location.href='#'">Login</button>
                 </div>
         </div>
+        <div class="logo" id="logo">
+                <img src="/images/logo.webp">
+        </div>
         <form class="form" id="login-form" enctype="multipart/form-data" method="post" action="/login">
                 <input name="user" type="text" placeholder="Username" />
                 <input id="password" name="pass" type="password" placeholder="Password" />
-                <input id="login" type="submit" value="Login">
+                <input class="btn" id="login" type="submit" value="Login">
         </form>
         
 

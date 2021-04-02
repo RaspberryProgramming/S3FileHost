@@ -1,6 +1,19 @@
 body {
     display: flex;
     flex-direction: column;
+    margin: 0;
+}
+
+.logo {
+    margin-top: 10vh;
+    margin-bottom: 10vh;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.logo img {
+    max-width: 25vw;
+    max-height: 25vh
 }
 
 .form {
@@ -20,8 +33,52 @@ body {
 .navbar {
     display: flex;
     flex-direction: row;
+    background-color: lightblue;
+    padding: 0;
+    height: 64px;
+}
+
+.navbar * {
+    margin: 10px;
+    
 }
 
 .accounts {
     margin-left: auto;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+button, .btn {
+    background-color: lightgray;
+    border-style: solid;
+    border-width: 1px;
+    border-color: white;
+    padding: 10px;
+    color: black;
+}
+
+button:hover, .btn:hover {
+    background-color: gray;
+    color:white;
+}
+
+.navbar .logo img{
+    margin-left: 0;
+    margin-right: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+    align-self: center;
+    justify-content: center;
+    max-width: 128px;
+    max-height: 38px;
+    
+}
+
+.navbar .logo{
+    display: flex;
+    margin-top: auto;
+    margin-bottom: auto;
+    max-width: 128px;
+    max-height: 38px;
 }
