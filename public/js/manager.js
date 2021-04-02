@@ -84,7 +84,6 @@ document.getElementById("tooltoggle").onclick = function () {
     }
     console.log(toolset);
 }
-
 document.getElementById("fileupload").onchange = function () {
     document.getElementById("upload-form").submit();
 };
@@ -133,4 +132,3 @@ document.getElementById("fileupload").onchange = function () {
             callback_finish: callback_finish
     });
 })();
-
