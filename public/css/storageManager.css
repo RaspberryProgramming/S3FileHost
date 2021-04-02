@@ -99,7 +99,7 @@ body {
     border-color: darkgray;
     border-left-style: solid;
     border-width: 1px;
-
+    
     padding: 0;
 
     width: 17rem;
@@ -202,7 +202,7 @@ body {
         padding: 12px;
     }
 
-    .file {
+    .file, .folder {
         width: 100%;
         height: unset;
     }
