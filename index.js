@@ -205,7 +205,7 @@ app.use(async function (req, res, next) {
                 res.redirect("/")
         } else {
 
-        next() // <-- important!
+            next() // <-- important!
         }
 })
 
@@ -601,6 +601,7 @@ app.get('/preview*', async (req, res) => {
                 let filename = req.path.split('/')[req.path.split('/').length - 1]
                 let extension = filename.split('.')[filename.split('.').length - 1]
                 let fullpath = req.path.split('/')
+                
                 fullpath.shift()
                 fullpath.shift()
                 console.log(fullpath)
@@ -611,8 +612,8 @@ app.get('/preview*', async (req, res) => {
                                 encoding: 'utf-8'
                         }
                 )
-                let output
-                if (['jpg', 'jpeg', 'png'].includes(extension)) {
+
+                if (['jpg', 'jpeg', 'png', 'webp'].includes(extension)) {
                         output = `<img href="/download${fullpath}" src="/download${fullpath}">`
                 } else if (['m4v', 'mp4', 'webm'].includes(extension)) {
                         output = `<video width="320" height="240" controls><source src="/download${fullpath}" type="video/${extension}" /> Your browser does not support the video tag.
