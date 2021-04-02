@@ -48,6 +48,32 @@ function select(id, path) {
 
 }
 
+function search(searchTerm) {
+    //let files = document.getElementById('files');
+    let files = document.getElementsByClassName("file");
+    let folders = document.getElementsByClassName("folder");
+
+    for (let i = 0; i < files.length; i++) {
+        
+        if (files[i].id.includes(searchTerm)){
+            files[i].style.display = "";
+        } else {
+            files[i].style.display = "none";
+        }
+
+    }
+
+    for (let i = 0; i < folders.length; i++) {
+        
+        if (folders[i].id.includes(searchTerm)){
+            folders[i].style.display = "";
+        } else {
+            folders[i].style.display = "none";
+        }
+
+    }
+}
+
 document.getElementById("tooltoggle").onclick = function () {
     let toolset = document.getElementById("toolset");
     if (toolset.style.display === "flex") {
@@ -58,12 +84,11 @@ document.getElementById("tooltoggle").onclick = function () {
     }
     console.log(toolset);
 }
+
 document.getElementById("fileupload").onchange = function () {
     document.getElementById("upload-form").submit();
 };
-document.getElementById("search").onchange = function () {
-    console.log("Searching");
-};
+
 (function () {
     function logElementEvent(eventName, element) {
             console.log(
@@ -108,3 +133,4 @@ document.getElementById("search").onchange = function () {
             callback_finish: callback_finish
     });
 })();
+
