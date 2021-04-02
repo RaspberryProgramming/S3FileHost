@@ -106,3 +106,5 @@ dist
 s3.json
 
 database.sqlite
+
+.vscode
