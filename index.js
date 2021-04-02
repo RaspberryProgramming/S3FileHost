@@ -202,9 +202,11 @@ app.use(async function (req, res, next) {
                 })
 
                 console.log('cookie created successfully')
-        }
+                res.redirect("/")
+        } else {
 
         next() // <-- important!
+        }
 })
 
 app.get('/', async function (req, res, next) {
@@ -265,9 +267,9 @@ app.post('/upload*', async function (req, res, next) {
                                 Key: key, // File name you want to save as in S3
                                 Body: req.files.myfile.data
                         }
+                        
                         // Uploading files to the bucket
-                        //hello?????
-                        // This can be defined in another function
+                        
                         s3.upload(params, function (err, data) {
                                 if (err) {
                                         throw err
@@ -395,10 +397,13 @@ app.get('/download*', async function (req, res, next) {
         let user = await retrieve(users, {
                 cookie: req.cookies.browserid
         })
+
         if (user !== null) {
                 let filename = req.path
+
                 filename = filename.split("%20").join(" ").split('/')
                 filename = filename[filename.length - 1]
+
                 let file = await retrieve(files, {
                         filename: filename
                 })
@@ -407,6 +412,7 @@ app.get('/download*', async function (req, res, next) {
                 fullpath.shift()
                 fullpath = assemblePath(fullpath)
                 console.log('Fullpath:' + fullpath)
+
                 let folder = await retrieve(folders, {
                         fullpath: fullpath,
                         user: user.dataValues.username
