@@ -2,6 +2,7 @@ body {
     display: flex;
     flex-direction: column;
     margin: 0;
+    background-color:#121212;
 }
 
 .logo {
@@ -33,7 +34,7 @@ body {
 .navbar {
     display: flex;
     flex-direction: row;
-    background-color: lightblue;
+    background-color: #252525;
     padding: 0;
     height: 64px;
 }
@@ -50,16 +51,17 @@ body {
 }
 
 button, .btn {
-    background-color: lightgray;
+    background-color: #191919;
+    border-radius: 5px;
     border-style: solid;
     border-width: 1px;
     border-color: white;
     padding: 10px;
-    color: black;
+    color: white;
 }
 
 button:hover, .btn:hover {
-    background-color: gray;
+    background-color: #38312b;
     color:white;
 }
 
@@ -81,4 +83,12 @@ button:hover, .btn:hover {
     margin-bottom: auto;
     max-width: 128px;
     max-height: 38px;
+}
+
+input {
+    background-color: #353535;
+    color: white;
+    padding: 10px;
+    border-style: solid;
+    border-radius: 5px;
 }
