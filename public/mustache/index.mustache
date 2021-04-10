@@ -2,15 +2,46 @@
  <html>
 
  <head>
-     <meta name="viewport" content="width=device-width" />
+    <link rel="StyleSheet" href="/css/public.css" type="text/css" />
+        <meta name="viewport" content="width=device-width" />
  </head>
 
  <body>
-     <div class="content">
-        <button onclick="window.location.href='/download/'">Bring to Storage Manager</button>
-         <p>Number of Files Stored: {{fileCount}}</p>
-         </div>
-     </div>
- </body>
+    
+    <div class="navbar">
+        <div class="logo"><img src="/images/logo.webp"></div>
+        <button onclick="window.location.href='/'">Home</button>
+        <div class="accounts">
+            <button onclick="window.location.href='/register'">Register</button>
+            <button onclick="window.location.href='/login'">Login</button>
+        </div>
+    </div>
+    <div class="logo" id="logo">
+        <img src="/images/logo.webp">
+    </div>
+
+    <div>
+        Files Stored: <div id="counter">0</div>
+    </div>
+    <script>
+        async function updateCounter() {
+            let count = {{fileCount}};
+            for (let i = 0; i < count; i++){
+                document.getElementById("counter").innerHTML = i.toString();
+                await sleep((count-i)/100);
+                console.log(i);
+            }
+        }
+
+        function sleep(milliseconds){
+            return new Promise(resolve => setTimeout(resolve, milliseconds))
+        }
+
+        updateCounter();
+
+
+    </script>
+</body>
+
 
  </html>
