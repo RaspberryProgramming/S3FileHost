@@ -29,6 +29,8 @@ body, html {
     flex-direction: column;
     height: 100vh;
     width: 100vw;
+    font-family:arial;
+
 }
 
 button, .btn {
@@ -78,6 +80,7 @@ button:hover, .btn:hover {
     border-style: solid !important;
     border-color: lightblue !important;
     border-width: 4px;
+    background-color: gray;
 }
 
 * {
