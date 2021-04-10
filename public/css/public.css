@@ -3,6 +3,7 @@ body {
     flex-direction: column;
     margin: 0;
     background-color:#121212;
+    color: white;
 }
 
 .logo {

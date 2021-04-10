@@ -2,28 +2,28 @@
 <html>
 
 <head>
-        <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet" />
-        <link rel="StyleSheet" href="/css/accounts.css" type="text/css" />
-        <meta name="viewport" content="width=device-width" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet" />
+    <link rel="StyleSheet" href="/css/public.css" type="text/css" />
+    <meta name="viewport" content="width=device-width" />
 </head>
 
 <body>
-        <div class="navbar">
-                <div class="logo"><img src="/images/logo.webp"></div>
-                <button onclick="window.location.href='/'">Home</button>
-                <div class="accounts">
-                        <button onclick="window.location.href='/register'">Register</button>
-                        <button onclick="window.location.href='#'">Login</button>
-                </div>
+    <div class="navbar">
+        <div class="logo"><img src="/images/logo.webp"></div>
+        <button onclick="window.location.href='/'">Home</button>
+        <div class="accounts">
+            <button onclick="window.location.href='/register'">Register</button>
+            <button onclick="window.location.href='#'">Login</button>
         </div>
-        <div class="logo" id="logo">
-                <img src="/images/logo.webp">
-        </div>
-        <form class="form" id="login-form" enctype="multipart/form-data" method="post" action="/login">
-                <input name="user" type="text" placeholder="Username" />
-                <input id="password" name="pass" type="password" placeholder="Password" />
-                <input class="btn" id="login" type="submit" value="Login">
-        </form>
+    </div>
+    <div class="logo" id="logo">
+        <img src="/images/logo.webp">
+    </div>
+    <form class="form" id="login-form" enctype="multipart/form-data" method="post" action="/login">
+        <input name="user" type="text" placeholder="Username" />
+        <input id="password" name="pass" type="password" placeholder="Password" />
+        <input class="btn" id="login" type="submit" value="Login">
+    </form>
         
 
         
@@ -32,9 +32,9 @@
 </html>
 
 <script>
-        document.getElementById("password").onkeydown = (e) => {
-                if (e.keyCode === 13) {
-                        document.getElementById("login-form").submit();
-                }
+    document.getElementById("password").onkeydown = (e) => {
+        if (e.keyCode === 13) {
+            document.getElementById("login-form").submit();
         }
+    }
 </script>
