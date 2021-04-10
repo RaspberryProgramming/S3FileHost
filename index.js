@@ -392,6 +392,56 @@ app.post('/upload*', async function (req, res, next) {
         }
 })
 
+app.get('/delete*', async function (req, res, next) {
+    let path = req.path.split('/delete')
+    path.shift()
+    path.pop()
+    path = assemblePath(path)
+
+    let filename = req.path.split("%20").join(" ").split('/')
+    filename = filename[filename.length-1]
+
+
+    let user = await retrieve(users, {
+            cookie: req.cookies.browserid
+    })
+
+    if (path === '') {
+        path = '/'
+    }
+
+    let fileData = await files.findAll({
+            where: {
+                    filename: filename,
+                    location: path,
+                    user: user.dataValues.username
+            },
+            order: [
+                    ['lastedit', 'DESC']
+            ]
+    })
+    .then(function (file) {
+            return file
+    })
+
+    console.log(path);
+    console.log(filename);
+    console.log(fileData);
+
+    if (fileData.length > 0) {
+        files.destroy({
+            where: {
+                id: fileData[0].id,
+            }
+        })
+
+        res.redirect("/download" + path)
+    } else {
+        res.send('File could not be deleted')
+    }
+
+})
+
 app.get('/download*', async function (req, res, next) {
         // download the file via aws s3 here
         let user = await retrieve(users, {

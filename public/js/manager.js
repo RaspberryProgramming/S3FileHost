@@ -25,12 +25,20 @@ function edit() {
 }
 
 function download() {
+function deleteFile() {
     let selected = document.getElementsByClassName("selected");
     for (i in selected) {
             if (selected[i].classList) {
                     let path = window.location.pathname;
-                    path = path.split("/download")[path.split.length - 1];
-                    window.location.href = "/download" + path + "/" + selected[i].id;
+            path = path.split("/download");
+            path.shift();
+            if (path.length <= 1) {
+                path = "/"
+            } else {
+                path = path.join("/")
+            }
+
+            window.location.href = "/delete" + path + selected[i].id;
             }
     }
 }
