@@ -3,6 +3,8 @@
 
     flex-direction: row;
 
+    flex-grow: 1;
+
     width: 100%;
 
     align-content: center;
@@ -19,9 +21,14 @@
 
 }
 
-body {
+body, html {
     margin: 0;
     color: white;
+    background-color: #212121;
+    display:flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100vw;
 }
 
 button, .btn {
@@ -95,7 +102,6 @@ button:hover, .btn:hover {
 
     flex-direction: row;
 
-    background-color: #212121;
 }
 
 .file-preview {
@@ -258,7 +264,8 @@ input {
     }
 
     .content {
-        height: 90vh;
+        
+
         flex-direction: row;
     }
 
