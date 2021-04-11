@@ -16,32 +16,33 @@
             <button onclick="window.location.href='/login'">Login</button>
         </div>
     </div>
-    <div class="logo" id="logo">
+    <div class="content">
+    <div class="display" id="logo">
         <img src="/images/logo.webp">
     </div>
 
-    <div>
-        Files Stored: <div id="counter">0</div>
+    <div class="display" id="files-stored">
+        <div class="title" id="title">Files Stored</div>
+        <div id="counter" class="info">0</div>
     </div>
-    <script>
-        async function updateCounter() {
-            let count = {{fileCount}};
-            for (let i = 0; i < count; i++){
-                document.getElementById("counter").innerHTML = i.toString();
-                await sleep((count-i)/100);
-                console.log(i);
-            }
-        }
-
-        function sleep(milliseconds){
-            return new Promise(resolve => setTimeout(resolve, milliseconds))
-        }
-
-        updateCounter();
-
-
-    </script>
+    </div>
 </body>
+<script>
+    async function updateCounter() {
+        let count = {{fileCount}};
+        for (let i = 0; i < count; i++){
+            document.getElementById("counter").innerHTML = i.toString();
+            await sleep((count-i)/100);
+            console.log(i);
+        }
+    }
+
+    function sleep(milliseconds){
+        return new Promise(resolve => setTimeout(resolve, milliseconds))
+    }
+
+    updateCounter();
 
 
+</script>
  </html>
