@@ -1,19 +1,19 @@
- <!doctype html>
- <html>
+<!doctype html>
+<html>
 
- <head>
-     <link rel="stylesheet" type="text/css" href="/css/editor.css">
-     <meta name="viewport" content="width=device-width" />
+<head>
+    <link rel="stylesheet" type="text/css" href="/css/editor.css">
+    <meta name="viewport" content="width=device-width" />
     <title>Editor</title>
- </head>
+</head>
 
- <body>
- <div class="content" id="content">{{{editor}}}</div>
- </body>
+<body>
+    <div class="content" id="content">{{{editor}}}</div>
+</body>
 
- </html>
- <script>
- document.addEventListener("keydown", function(e) {
+</html>
+<script>
+document.addEventListener("keydown", function(e) {
     /**
      * Runs when a user types a key, and it used with text editor
      */
@@ -24,11 +24,11 @@
         extension = file[file.length-1]; // extract the extension
         if (extension === "txt" || extension === "text"){ // if it is a text file
             savetxt(); // save the file
+        }
     }
-  }
 }, false);
 
- function assemblePath(pathArray){
+function assemblePath(pathArray){
     /**
      * assemblePath: used to assemble an array into a path
      */
@@ -36,10 +36,10 @@
 
     for (i in pathArray){ // for each element in the pathArray
         path += "/" + pathArray[i]; // add a / between the current and last path element
-                 }
-         
+    }
+    
     return path; // return the final path
- }
+}
 
 function savetxt(){
 
@@ -51,15 +51,15 @@ function savetxt(){
 
     let data = textbox.value; // Extract editor data
 
-  console.log( 'Sending data' );
+    console.log( 'Sending data' );
 
     let filename = '{{{file}}}'; // name of the file that was edited
 
     let uploadpath = window.location.pathname.split("/"); // split the page's path
     
     uploadpath.shift(); // Modify the upload path
-  uploadpath.shift();
-  uploadpath.pop();
+    uploadpath.shift();
+    uploadpath.pop();
 
     uploadpath = "/upload" + assemblePath(uploadpath); // Generate the upload path
 
@@ -72,9 +72,9 @@ function savetxt(){
     xhr.send(JSON.stringify({ // Add request data
         filedata: data, // file data
         filename: filename // filename
-}));
+    }));
 
     console.log(uploadpath); // Log the uploadPath for debug use
 }
 
- </script>
+</script>
