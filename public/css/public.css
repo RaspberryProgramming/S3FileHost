@@ -28,6 +28,7 @@ body {
     border-top-right-radius: 10px;
     padding-right: 5vw;
     padding-left: 5vw;
+    text-align: center;
 }
 
 .display .info {
@@ -37,6 +38,15 @@ body {
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
 
+}
+
+.browser-border {
+    padding-top: 10px;
+    border-style: solid;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    border-color: #343434;
+    background-color: #535353;
 }
 
 .content {
