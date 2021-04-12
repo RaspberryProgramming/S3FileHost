@@ -23,6 +23,7 @@
 
     <div class="display" id="files-stored">
         <div class="title" id="title">Files Stored</div>
+                <div id="counter" class="info">{{fileCount}}</div>
             </div>
         </div>
         <div class="display" id="example">
@@ -32,22 +33,4 @@
     </div>
     </div>
 </body>
-<script>
-    async function updateCounter() {
-        let count = {{fileCount}};
-        for (let i = 0; i < count; i++){
-            document.getElementById("counter").innerHTML = i.toString();
-            await sleep((count-i)/100);
-            console.log(i);
-        }
-    }
-
-    function sleep(milliseconds){
-        return new Promise(resolve => setTimeout(resolve, milliseconds))
-    }
-
-    updateCounter();
-
-
-</script>
  </html>
