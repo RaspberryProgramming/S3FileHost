@@ -324,13 +324,7 @@ app.post('/upload*', async function (req, res, next) {
                                         })
                                 }
 
-                                res.send(`
-      <!doctype html>
-      <html>
-      <body>
-<script>window.location.href = "/download${path}"</script>      
-      </body>
-      </html>`)
+                res.redirect(`/download${path}`)
 
                                 console.log(`File uploaded successfully. ${data.Location}`)
                         })
