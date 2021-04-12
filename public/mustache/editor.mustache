@@ -14,46 +14,67 @@
  </html>
  <script>
  document.addEventListener("keydown", function(e) {
-  if ((window.navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey)  && e.keyCode == 83) {
-    e.preventDefault();
+    /**
+     * Runs when a user types a key, and it used with text editor
+     */
+    if ((window.navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey) && e.keyCode == 83) { // Detect save keybind
+        e.preventDefault(); // prevent key from displaying on page
 
-    let file = '{{{file}}}'.split(".");
-    extension = file[file.length-1];
-    if (extension === "txt" || extension === "text"){
-        savetxt();
+        let file = '{{{file}}}'.split("."); // retrieve the file
+        extension = file[file.length-1]; // extract the extension
+        if (extension === "txt" || extension === "text"){ // if it is a text file
+            savetxt(); // save the file
     }
   }
 }, false);
 
  function assemblePath(pathArray){
-         let path = "";
-         for (i in pathArray){
-                 path += "/" + pathArray[i];
+    /**
+     * assemblePath: used to assemble an array into a path
+     */
+    let path = ""; // stores the output
+
+    for (i in pathArray){ // for each element in the pathArray
+        path += "/" + pathArray[i]; // add a / between the current and last path element
                  }
          
-         return path;
+    return path; // return the final path
  }
 
 function savetxt(){
 
- let textbox = document.getElementById("textbox");
- let data = textbox.value;
+    /**
+     * savetxt: Used when file save is initialized. This function will save the modified file on the page.
+     */
+
+    let textbox = document.getElementById("textbox"); // extract textbox element on the page
+
+    let data = textbox.value; // Extract editor data
+
   console.log( 'Sending data' );
-  let filename = '{{{file}}}';
-  let uploadpath = window.location.pathname.split("/");
-  uploadpath.shift();
+
+    let filename = '{{{file}}}'; // name of the file that was edited
+
+    let uploadpath = window.location.pathname.split("/"); // split the page's path
+    
+    uploadpath.shift(); // Modify the upload path
   uploadpath.shift();
   uploadpath.pop();
-  console.log(uploadpath);
-    uploadpath = "/upload" + assemblePath(uploadpath);
-  var xhr = new XMLHttpRequest();
-xhr.open("POST", uploadpath, true);
-xhr.setRequestHeader('Content-Type', 'application/json');
-xhr.send(JSON.stringify({
-    filedata: data,
-    filename: filename
+
+    uploadpath = "/upload" + assemblePath(uploadpath); // Generate the upload path
+
+    var xhr = new XMLHttpRequest(); // Create HTTP request
+
+    xhr.open("POST", uploadpath, true); // Add request type and path
+    
+    xhr.setRequestHeader('Content-Type', 'application/json'); // Add request headers
+
+    xhr.send(JSON.stringify({ // Add request data
+        filedata: data, // file data
+        filename: filename // filename
 }));
-console.log(uploadpath);
+
+    console.log(uploadpath); // Log the uploadPath for debug use
 }
 
  </script>
