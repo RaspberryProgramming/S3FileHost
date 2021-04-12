@@ -376,14 +376,8 @@ app.post('/upload*', async function (req, res, next) {
                                 lastedit: Date.now(),
                                 user: user.dataValues.username
                         })
-                res.send(`
-      <!doctype html>
-      <html>
-      <body>
-<script>window.location.href = "/download${path}"</script>      
-      </body>
-      </html>`)
-        }
+            res.redirect(`/download${path}`)
+    }
 })
 
 app.get('/delete*', async function (req, res, next) {
